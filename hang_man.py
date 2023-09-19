@@ -90,7 +90,7 @@ def playAgain():
 print('В И С Е Л И Ц А')
 missedLetters = ''
 correctLetters = ''
-secretWord = getRandomWord(words)
+secretWord = getRandomWord(word)
 gameIsDone = False
 
 while True:
@@ -115,13 +115,13 @@ while True:
         if len(missedLetters) == len(HANGMAN_PICS) - 1:
             displayBoard(missedLetters, correctLetters, secretWord)
             print(f'Вы исчерпали все попытки! \nНеугадано букв:{len(missedLetters)} и угадано букв:'
-                  f' {len(correctLetters)}. Было загадано слово{secretWord}.')
+                  f' {len(correctLetters)}. Было загадано слово {secretWord}.')
             gameIsDone = True
     if gameIsDone:
         if playAgain():
             missedLetters = ''
             correctLetters = ''
             gameIsDone = False
-            secretWord = getRandomWord(words)
+            secretWord = getRandomWord(word)
         else:
             break
