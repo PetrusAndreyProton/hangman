@@ -80,3 +80,48 @@ def getGuess(alreadyaGuessed):
             print('Пожалуйста, введите БУКВУ.')
         else:
             return guess
+
+
+def playAgain():
+    print('Хотите сыграть еще? (да или нет)')
+    return input().lower().startswith('д')
+
+
+print('В И С Е Л И Ц А')
+missedLetters = ''
+correctLetters = ''
+secretWord = getRandomWord(words)
+gameIsDone = False
+
+while True:
+    displayBoard(missedLetters, correctLetters, secretWord)
+
+    guess = getGuess(missedLetters + correctLetters)
+
+    if guess in secretWord:
+        correctLetters = correctLetters + guess
+
+        foundAllLetters = True
+        for i in range(len(secretWord)):
+            if secretWord[i] not in correctLetters:
+                foundAllLetters = False
+                break
+            if foundAllLetters:
+                print(f'ДА! Секретное слово {secretWord}! Вы угадали!')
+                gameIsDone = True
+    else:
+        missedLetters = missedLetters + guess
+
+        if len(missedLetters) == len(HANGMAN_PICS) - 1:
+            displayBoard(missedLetters, correctLetters, secretWord)
+            print(f'Вы исчерпали все попытки! \nНеугадано букв:{len(missedLetters)} и угадано букв:'
+                  f' {len(correctLetters)}. Было загадано слово{secretWord}.')
+            gameIsDone = True
+    if gameIsDone:
+        if playAgain():
+            missedLetters = ''
+            correctLetters = ''
+            gameIsDone = False
+            secretWord = getRandomWord(words)
+        else:
+            break
